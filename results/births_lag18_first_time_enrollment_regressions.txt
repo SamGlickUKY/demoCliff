@@ -1,0 +1,97 @@
+IPEDS first-time fall enrollment aggregation and birth-lag regressions
+=================================================================
+
+IPEDS source: raw_data/ipeds.parquet
+College-level IPEDS cache: processed_data/ipeds_first_time_college_2000_2022.parquet
+State-year enrollment file: processed_data/ipeds_first_time_state_year_2000_2022.parquet
+Analysis file: processed_data/state_year_births_lag18_first_time_enrollment.parquet
+Coefficient parquet: results/births_lag18_first_time_enrollment_regressions.parquet
+
+IPEDS years: 2000-2022
+Matched regression years: 2013-2018
+Matched observations: 306
+States matched: 51
+
+Summary of matched analysis data
+      year        birth_year    births_lag18    first_time_enrollments
+ Min.   :2013   Min.   :1995   Min.   :  6129   Min.   :  1428        
+ 1st Qu.:2014   1st Qu.:1996   1st Qu.: 19996   1st Qu.:  7632        
+ Median :2016   Median :1998   Median : 52296   Median : 17443        
+ Mean   :2016   Mean   :1998   Mean   : 77228   Mean   : 24249        
+ 3rd Qu.:2017   3rd Qu.:1999   3rd Qu.: 83494   3rd Qu.: 31162        
+ Max.   :2018   Max.   :2000   Max.   :552045   Max.   :125917        
+   n_colleges    
+ Min.   :  1.00  
+ 1st Qu.:  8.00  
+ Median : 18.00  
+ Mean   : 23.69  
+ 3rd Qu.: 29.00  
+ Max.   :116.00  
+
+
+Requested direction: births_{t-18} on first-time enrollments_t
+                            births_on_enroll.. log_births_on_l..
+Dependent Var.:                    Births t-18 log(births_lag18)
+                                                                
+Constant                    -9,880.8 (7,592.9)   1.056. (0.5745)
+First-time enrollments       3.592*** (0.4423)                  
+log(first_time_enrollments)                    1.001*** (0.0568)
+Fixed-Effects:              ------------------ -----------------
+state_fips                                  No                No
+year                                        No                No
+___________________________ __________________ _________________
+S.E.: Clustered                 by: state_fips    by: state_fips
+Observations                               306               306
+R2                                     0.85995           0.85698
+Within R2                                   --                --
+
+                            births_on_enro.. log_births_on_l...1
+Dependent Var.:                  Births t-18   log(births_lag18)
+                                                                
+Constant                                                        
+First-time enrollments      -0.0180 (0.2156)                    
+log(first_time_enrollments)                      0.0187 (0.0135)
+Fixed-Effects:              ----------------   -----------------
+state_fips                               Yes                 Yes
+year                                     Yes                 Yes
+___________________________ ________________   _________________
+S.E.: Clustered               by: state_fips      by: state_fips
+Observations                             306                 306
+R2                                   0.99890             0.99937
+Within R2                            0.00054             0.00951
+---
+Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Alternative timing direction: first-time enrollments_t on births_{t-18}
+                  enroll_on_births_poo.. log_enroll_on_log_births_..
+Dependent Var.:   First-time enrollments log(first_time_enrollments)
+                                                                    
+Constant            5,761.6*** (1,558.3)             0.4774 (0.5534)
+Births t-18           0.2394*** (0.0249)                            
+log(births_lag18)                                 0.8564*** (0.0493)
+Fixed-Effects:    ---------------------- ---------------------------
+state_fips                            No                          No
+year                                  No                          No
+_________________ ______________________ ___________________________
+S.E.: Clustered           by: state_fips              by: state_fips
+Observations                         306                         306
+R2                               0.85995                     0.85698
+Within R2                             --                          --
+
+                  enroll_on_births_sta.. log_enroll_on_log_births_...1
+Dependent Var.:   First-time enrollments   log(first_time_enrollments)
+                                                                      
+Constant                                                              
+Births t-18             -0.0298 (0.3596)                              
+log(births_lag18)                                      0.5087 (0.4031)
+Fixed-Effects:    ----------------------   ---------------------------
+state_fips                           Yes                           Yes
+year                                 Yes                           Yes
+_________________ ______________________   ___________________________
+S.E.: Clustered           by: state_fips                by: state_fips
+Observations                         306                           306
+R2                               0.97262                       0.97988
+Within R2                        0.00054                       0.00951
+---
+Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1

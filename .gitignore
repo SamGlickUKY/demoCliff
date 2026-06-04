@@ -1,0 +1,19 @@
+# Local/editor artifacts
+.Rhistory
+__pycache__/
+*.py[cod]
+
+# Local credentials
+config/
+
+# Deprecated legacy data folder
+/data/
+
+# Raw vendor artifacts are reproducible and often exceed GitHub limits
+/raw_data/*.csv
+/raw_data/*.zip
+/raw_data/*.parquet
+/raw_data/*.part
+
+# Keep raw_data directory visible in git
+!/raw_data/.gitkeep
